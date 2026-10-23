@@ -27,9 +27,22 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Get Flutter Packages
+      - name: Generate Official Android Platform Files
         working-directory: ./app
-        run: flutter pub get
+        run: |
+          flutter create --platforms=android --org com.example .
+          flutter pub get
+
+      - name: Configure Android for Biometrics
+        working-directory: ./app
+        run: |
+          # Use FlutterFragmentActivity for fingerprint authentication (local_auth)
+          sed -i 's/FlutterActivity/FlutterFragmentActivity/g' android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt || true
+          # Set minSdkVersion to 23 for biometrics
+          sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 23/g' android/app/build.gradle || true
+          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 23/g' android/app/build.gradle || true
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 23/g' android/app/build.gradle || true
+          chmod +x android/gradlew
 
       - name: Build APK (Release)
         working-directory: ./app
