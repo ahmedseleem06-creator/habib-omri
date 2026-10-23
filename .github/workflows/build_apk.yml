@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -33,15 +33,22 @@ jobs:
           flutter create --platforms=android --org com.example .
           flutter pub get
 
-      - name: Configure Android for Biometrics
+      - name: Fix Code & Configure Android
         working-directory: ./app
         run: |
-          # Use FlutterFragmentActivity for fingerprint authentication (local_auth)
+          # 1. Fix Dart syntax in chat_screen.dart
+          sed -i 's/BorderSide.none/InputBorder.none/g' lib/screens/chat_screen.dart || true
+
+          # 2. Use FlutterFragmentActivity for fingerprint authentication (local_auth)
           sed -i 's/FlutterActivity/FlutterFragmentActivity/g' android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt || true
-          # Set minSdkVersion to 23 for biometrics
+
+          # 3. Configure Android SDK 35 & minSdk 23 for biometrics and video
+          sed -i 's/compileSdk = flutter.compileSdkVersion/compileSdk = 35/g' android/app/build.gradle || true
+          sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion 35/g' android/app/build.gradle || true
           sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 23/g' android/app/build.gradle || true
           sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 23/g' android/app/build.gradle || true
           sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 23/g' android/app/build.gradle || true
+
           chmod +x android/gradlew
 
       - name: Build APK (Release)
