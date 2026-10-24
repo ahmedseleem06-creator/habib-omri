@@ -23,7 +23,7 @@ class HabibOmriApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'حبيب عمري',
+      title: 'عالمنا الخاص',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       home: const SplashScreen(),

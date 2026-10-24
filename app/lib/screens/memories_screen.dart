@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../services/auth_service.dart';
 import '../theme/app_theme.dart';
+import 'love_hub_screen.dart';
 
 class MemoriesScreen extends StatefulWidget {
   const MemoriesScreen({super.key});
@@ -152,6 +153,52 @@ class _MemoriesScreenState extends State<MemoriesScreen> {
 
             // 4. TIMELINE OF OUR LOVE (محطات حبنا)
             _buildTimelineSection(),
+
+            const SizedBox(height: 16),
+
+            // 5. Link to Love Hub (كبسولة الزمن والأسئلة والأحلام)
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoveHubScreen()),
+                );
+              },
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppTheme.primary.withOpacity(0.3), AppTheme.accentPink.withOpacity(0.3)],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppTheme.accentPink.withOpacity(0.5)),
+                ),
+                child: const Row(
+                  children: [
+                    Text("🎁", style: TextStyle(fontSize: 26)),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "ركن العشاق السري 💍💖",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white),
+                          ),
+                          SizedBox(height: 3),
+                          Text(
+                            "كبسولة الزمن، سؤال اليوم، قائمة أحلامنا، وألبومنا السري",
+                            style: TextStyle(fontSize: 10.5, color: AppTheme.textMuted),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(Icons.arrow_forward_ios_rounded, color: AppTheme.accentPink, size: 16),
+                  ],
+                ),
+              ),
+            ),
 
             const SizedBox(height: 30),
           ],

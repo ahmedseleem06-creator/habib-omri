@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             // App Title
             const Text(
-              "حبيب عمري",
+              "عالمنا الخاص",
               style: TextStyle(
                 fontSize: 34,
                 fontWeight: FontWeight.bold,
@@ -89,7 +89,19 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ).animate().fadeIn(duration: 800.ms).slideY(begin: 0.3, end: 0),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
+
+            // Welcome Message
+            const Text(
+              "أهلاً بكم في عالم أحمد ومروة ❤️",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppTheme.primaryLight,
+              ),
+            ).animate().fadeIn(delay: 300.ms, duration: 600.ms),
+
+            const SizedBox(height: 14),
 
             // Romantic Dedication for Marwa
             Container(
@@ -102,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: const Text(
                 "بحبك يا مروة وربنا يجعلك حلالي 💍❤️",
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 14,
                   color: Color(0xFFF472B6),
                   fontWeight: FontWeight.bold,
                 ),

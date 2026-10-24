@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Icon(Icons.favorite, size: 18, color: AppTheme.accentPink),
                       SizedBox(width: 8),
                       Text(
-                        "مخصص لشخصين فقط ❤️",
+                        "أهلاً بكم في عالم أحمد ومروة ❤️",
                         style: TextStyle(fontSize: 13, color: AppTheme.primaryLight, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: const TextStyle(color: AppTheme.textMain),
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.pin_rounded, color: AppTheme.primaryLight),
-                    hintText: "الرمز السري (الافتراضي 1234)",
+                    hintText: "الرمز السري (141997)",
                     hintStyle: const TextStyle(color: AppTheme.textHint),
                     filled: true,
                     fillColor: AppTheme.surfaceElevated,
@@ -250,18 +250,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        _phoneController.text = "01000000001";
-                        _pinController.text = "1234";
+                        _phoneController.text = "01021983866";
+                        _pinController.text = "141997";
                       },
-                      child: const Text("تجربة (رقمي)", style: TextStyle(color: AppTheme.primaryLight, fontSize: 13)),
+                      child: const Text("دخول أحمد 🤵🏻‍♂️", style: TextStyle(color: AppTheme.primaryLight, fontSize: 13, fontWeight: FontWeight.bold)),
                     ),
                     const Text(" • ", style: TextStyle(color: AppTheme.textHint)),
                     TextButton(
                       onPressed: () {
-                        _phoneController.text = "01000000002";
-                        _pinController.text = "1234";
+                        _phoneController.text = "01156165169";
+                        _pinController.text = "141997";
                       },
-                      child: const Text("تجربة (رقم خطيبتي)", style: TextStyle(color: AppTheme.accentPink, fontSize: 13)),
+                      child: const Text("دخول مروة 👰🏻‍♀️", style: TextStyle(color: AppTheme.accentPink, fontSize: 13, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),

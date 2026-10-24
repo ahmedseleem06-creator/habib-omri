@@ -42,8 +42,9 @@ android {
 
     defaultConfig {
         applicationId "com.example.habib_omri"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 34
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

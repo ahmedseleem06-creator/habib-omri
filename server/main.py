@@ -369,6 +369,26 @@ async def websocket_chat(websocket: WebSocket, phone: str):
                 if partner_phone:
                     await manager.send_to_user(partner_phone, reaction_payload)
 
+            elif event_type == "heartbeat":
+                pulse_payload = {
+                    "event": "heartbeat_received",
+                    "sender_phone": phone,
+                    "sender_name": "أحمد" if phone == "01021983866" else "مروة",
+                    "message": event_data.get("content", "بيفكر فيكي دلوقتي وبيبعتلك نبضات قلبه ❤️")
+                }
+                if partner_phone:
+                    await manager.send_to_user(partner_phone, pulse_payload)
+
+            elif event_type == "mood_update":
+                mood = event_data.get("content", "")
+                mood_payload = {
+                    "event": "partner_mood_updated",
+                    "phone": phone,
+                    "mood": mood
+                }
+                if partner_phone:
+                    await manager.send_to_user(partner_phone, mood_payload)
+
     except WebSocketDisconnect:
         manager.disconnect(phone)
         await manager.broadcast_presence(phone, is_online=False)

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../theme/app_theme.dart';
 
 class AuthService {
   static final AuthService _instance = AuthService._internal();
@@ -23,6 +24,9 @@ class AuthService {
   static const String keyAppPin = "app_lock_pin";
   static const String keyBiometricsEnabled = "biometrics_enabled";
   static const String keyServerUrl = "custom_server_url";
+  static const String keyChatWallpaper = "custom_chat_wallpaper";
+  static const String keyWallpaperOpacity = "chat_wallpaper_opacity";
+  static const String keyMilestones = "love_milestones";
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
@@ -30,12 +34,40 @@ class AuthService {
     if (savedUrl != null && savedUrl.isNotEmpty) {
       serverUrl = savedUrl;
     }
+    final savedTheme = prefs.getString("selected_app_theme");
+    if (savedTheme != null) {
+      AppTheme.setTheme(savedTheme);
+    }
   }
 
   Future<void> updateServerUrl(String url) async {
     serverUrl = url;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(keyServerUrl, url);
+  }
+
+  Future<String?> getChatWallpaper() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyChatWallpaper);
+  }
+
+  Future<void> setChatWallpaper(String? path) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (path == null) {
+      await prefs.remove(keyChatWallpaper);
+    } else {
+      await prefs.setString(keyChatWallpaper, path);
+    }
+  }
+
+  Future<double> getWallpaperOpacity() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble(keyWallpaperOpacity) ?? 0.35;
+  }
+
+  Future<void> setWallpaperOpacity(double opacity) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble(keyWallpaperOpacity, opacity);
   }
 
   Future<bool> isLoggedIn() async {
@@ -110,7 +142,7 @@ class AuthService {
   Future<bool> authenticateBiometrics() async {
     try {
       return await _localAuth.authenticate(
-        localizedReason: 'يرجى تأكيد بصمة الإصبع لفتح تطبيق حبيب عمري ❤️',
+        localizedReason: 'يرجى تأكيد بصمة الإصبع لفتح تطبيق عالمنا الخاص ❤️',
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: true,
@@ -123,7 +155,7 @@ class AuthService {
 
   Future<bool> verifyPin(String enteredPin) async {
     final prefs = await SharedPreferences.getInstance();
-    final savedPin = prefs.getString(keyAppPin) ?? "1234";
+    final savedPin = prefs.getString(keyAppPin) ?? "141997";
     return enteredPin == savedPin;
   }
 

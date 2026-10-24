@@ -46,13 +46,13 @@ class _LockScreenState extends State<LockScreen> {
   }
 
   void _onDigitPress(String digit) {
-    if (_enteredPin.length < 4) {
+    if (_enteredPin.length < 6) {
       setState(() {
         _isError = false;
         _enteredPin += digit;
       });
 
-      if (_enteredPin.length == 4) {
+      if (_enteredPin.length == 6) {
         _verifyEnteredPin();
       }
     }
@@ -118,7 +118,7 @@ class _LockScreenState extends State<LockScreen> {
             ),
             const SizedBox(height: 20),
             const Text(
-              "حبيب عمري",
+              "عالمنا الخاص",
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -127,32 +127,32 @@ class _LockScreenState extends State<LockScreen> {
             ),
             const SizedBox(height: 4),
             const Text(
-              "بحبك يا مروة وربنا يجعلك حلالي ❤️",
+              "أهلاً بكم في عالم أحمد ومروة ❤️",
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFFF472B6),
+                color: AppTheme.primaryLight,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              "أدخل الرمز السري أو بصمة الإصبع",
+              "أدخل الرمز السري (141997) أو بصمة الإصبع",
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 color: _isError ? Colors.redAccent : AppTheme.textMuted,
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 24),
 
-            // 4 PIN Dots
+            // 6 PIN Dots for 141997
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(4, (index) {
+              children: List.generate(6, (index) {
                 final filled = index < _enteredPin.length;
                 return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 16,
-                  height: 16,
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
+                  width: 14,
+                  height: 14,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: filled ? AppTheme.primaryLight : AppTheme.surfaceElevated,
