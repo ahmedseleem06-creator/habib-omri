@@ -674,7 +674,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         decoration: const InputDecoration(
                           hintText: "رسالة إلى مروة...",
                           hintStyle: TextStyle(color: AppTheme.textHint, fontSize: 13.5),
-                          border: BorderSide.none,
+                          border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
                       ),

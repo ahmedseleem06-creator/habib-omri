@@ -18,22 +18,32 @@ import sqlite3
 # -------------------------------------------------------------
 # Configuration & Constants
 # -------------------------------------------------------------
-DB_FILE = "habib_omri.db"
-UPLOAD_DIR = "uploads"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_FILE = os.path.join(BASE_DIR, "habib_omri.db")
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# Default pre-configured partners (User can change these numbers anytime)
+# Default pre-configured partners (Ahmed & Marwa)
 DEFAULT_USERS = {
-    "01000000001": {
-        "name": "حبيب قلبي",
+    "01021983866": {
+        "name": "أحمد",
         "role": "husband",
-        "pin": "1234" # Default PIN on first login
+        "birthdate": "1995-07-01",
+        "pin": "141997"
     },
-    "01000000002": {
-        "name": "مروة عمري",
+    "01156165169": {
+        "name": "مروة",
         "role": "fiancee",
-        "pin": "1234" # Default PIN on first login
+        "birthdate": "1997-04-01",
+        "pin": "141997"
     }
+}
+
+LOVE_MILESTONES = {
+    "love_start": "2022-02-18",
+    "engagement": "2027-07-01",
+    "ahmed_birthday": "1995-07-01",
+    "marwa_birthday": "1997-04-01",
 }
 
 app = FastAPI(title="Habib Omri Backend", version="1.0.0")
@@ -211,10 +221,15 @@ def login(req: LoginRequest):
         },
         "partner": {
             "phone": partner["phone"] if partner else "",
-            "name": partner["name"] if partner else "حبيبتي",
+            "name": partner["name"] if partner else ("مروة" if user["role"] == "husband" else "أحمد"),
             "avatar_url": partner["avatar_url"] if partner else ""
-        }
+        },
+        "milestones": LOVE_MILESTONES
     }
+
+@app.get("/api/milestones")
+def get_milestones():
+    return LOVE_MILESTONES
 
 @app.get("/api/messages")
 def get_messages(phone: str, limit: int = 100):

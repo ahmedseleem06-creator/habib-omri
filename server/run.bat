@@ -1,11 +1,10 @@
 @echo off
-chcp 65001 > nul
+title Habib Omri Server
+cd /d "%~dp0"
 echo ===================================================
-echo     سيرفر تطبيق حبيب عمري (Habib Omri Server)
+echo           Habib Omri Server (Running...)
 echo ===================================================
-echo جاري فحص وتثبيت المكتبات المطلوبة...
-py -m pip install -r requirements.txt
+echo Local Server URL: http://192.168.1.2:8000
 echo.
-echo تشغيل السيرفر على http://localhost:8000 ...
-py main.py
+"C:\Users\hossam\AppData\Local\Programs\Python\Python313\python.exe" -m uvicorn main:app --host 0.0.0.0 --port 8000
 pause
