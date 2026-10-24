@@ -29,10 +29,8 @@ jobs:
 
       - name: Extract Zip & Normalize Directory Structure
         run: |
-          # 1. Clean old app directory to prevent old code lingering
           rm -rf app 2>/dev/null || true
 
-          # 2. Extract latest Our_Private_World_New.zip
           if [ -f "Our_Private_World_New.zip" ]; then
             echo "Extracting latest Our_Private_World_New.zip..."
             unzip -o "Our_Private_World_New.zip"
@@ -49,8 +47,6 @@ jobs:
             cp -rf Our_Private_World_New/* . 2>/dev/null || true
           fi
 
-          ls -la
-
           if [ ! -d "./app" ]; then
             echo "ERROR: Directory ./app not found!"
             exit 1
@@ -65,7 +61,6 @@ jobs:
       - name: Fix Code & Configure Android
         working-directory: ./app
         run: |
-          # 1. Clean const if any in widget trees
           sed -i 's/decoration: const BoxDecoration(/decoration: BoxDecoration(/g' lib/screens/stories_screen.dart || true
           sed -i 's/trailing: const Icon(/trailing: Icon(/g' lib/screens/stories_screen.dart || true
           sed -i 's/style: const TextStyle(/style: TextStyle(/g' lib/screens/stories_screen.dart || true
@@ -73,7 +68,6 @@ jobs:
           sed -i 's/icon: const Icon(/icon: Icon(/g' lib/screens/love_hub_screen.dart || true
           sed -i 's/BorderSide.none/InputBorder.none/g' lib/screens/chat_screen.dart || true
 
-          # 2. Android setup & compatibility
           sed -i 's/FlutterActivity/FlutterFragmentActivity/g' android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt || true
           sed -i 's/compileSdk = flutter.compileSdkVersion/compileSdk = 35/g' android/app/build.gradle || true
           sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion 35/g' android/app/build.gradle || true
@@ -82,7 +76,8 @@ jobs:
           sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle || true
           sed -i '/minSdkVersion/a \        multiDexEnabled = true' android/app/build.gradle || true
           sed -i 's/android:label="[^"]*"/android:label="عالمنا الخاص"/g' android/app/src/main/AndroidManifest.xml || true
-          # Apply Custom Romantic App Icons
+          
+          # وضع الأيقونات الجديدة
           cp -rf assets/icons/res/* android/app/src/main/res/ 2>/dev/null || true
           sed -i 's/android:icon="@mipmap\/ic_launcher"/android:icon="@mipmap\/ic_launcher" android:roundIcon="@mipmap\/ic_launcher_round"/g' android/app/src/main/AndroidManifest.xml || true
           grep -q 'android.permission.INTERNET' android/app/src/main/AndroidManifest.xml || sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.USE_BIOMETRIC" />\n    <uses-permission android:name="android.permission.USE_FINGERPRINT" />' android/app/src/main/AndroidManifest.xml || true
