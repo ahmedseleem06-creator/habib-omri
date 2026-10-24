@@ -409,7 +409,7 @@ class _LoveHubScreenState extends State<LoveHubScreen> with SingleTickerProvider
             const SizedBox(height: 10),
             Text(
               "المرسل: ${capsule["author"]} ❤️",
-              style: const TextStyle(fontSize: 11, color: AppTheme.primaryLight, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 11, color: AppTheme.primaryLight, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -462,10 +462,10 @@ class _LoveHubScreenState extends State<LoveHubScreen> with SingleTickerProvider
                   title: const Text("تاريخ الفتح التلقائي:", style: TextStyle(color: AppTheme.textMuted, fontSize: 12)),
                   subtitle: Text(
                     "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}",
-                    style: const TextStyle(color: AppTheme.primaryLight, fontWeight: FontWeight.bold, fontSize: 14),
+                    style: TextStyle(color: AppTheme.primaryLight, fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   trailing: IconButton(
-                    icon: const Icon(Icons.calendar_month_rounded, color: AppTheme.primaryLight),
+                    icon: Icon(Icons.calendar_month_rounded, color: AppTheme.primaryLight),
                     onPressed: () async {
                       final picked = await showDatePicker(
                         context: context,
@@ -901,7 +901,7 @@ class _LoveHubScreenState extends State<LoveHubScreen> with SingleTickerProvider
                       ),
                       child: Text(
                         photo["category"],
-                        style: const TextStyle(fontSize: 10, color: AppTheme.primaryLight, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 10, color: AppTheme.primaryLight, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Text(photo["date"], style: const TextStyle(fontSize: 10, color: AppTheme.textMuted)),
@@ -1037,7 +1037,7 @@ class _LoveHubScreenState extends State<LoveHubScreen> with SingleTickerProvider
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Text("بصوت: ${voice["author"]}", style: const TextStyle(fontSize: 10.5, color: AppTheme.primaryLight)),
+                    Text("بصوت: ${voice["author"]}", style: TextStyle(fontSize: 10.5, color: AppTheme.primaryLight)),
                     const Text(" • ", style: TextStyle(color: AppTheme.textMuted)),
                     Text(voice["date"], style: const TextStyle(fontSize: 10.5, color: AppTheme.textMuted)),
                     const Spacer(),

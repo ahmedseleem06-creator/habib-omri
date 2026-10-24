@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(color: AppTheme.primary.withOpacity(0.3)),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.favorite, size: 18, color: AppTheme.accentPink),
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.phone,
                   style: const TextStyle(color: AppTheme.textMain),
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.phone_android_rounded, color: AppTheme.primaryLight),
+                    prefixIcon: Icon(Icons.phone_android_rounded, color: AppTheme.primaryLight),
                     hintText: "رقم الموبايل",
                     hintStyle: const TextStyle(color: AppTheme.textHint),
                     filled: true,
@@ -207,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   style: const TextStyle(color: AppTheme.textMain),
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.pin_rounded, color: AppTheme.primaryLight),
+                    prefixIcon: Icon(Icons.pin_rounded, color: AppTheme.primaryLight),
                     hintText: "الرمز السري (141997)",
                     hintStyle: const TextStyle(color: AppTheme.textHint),
                     filled: true,
@@ -253,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _phoneController.text = "01021983866";
                         _pinController.text = "141997";
                       },
-                      child: const Text("دخول أحمد 🤵🏻‍♂️", style: TextStyle(color: AppTheme.primaryLight, fontSize: 13, fontWeight: FontWeight.bold)),
+                      child: Text("دخول أحمد 🤵🏻‍♂️", style: TextStyle(color: AppTheme.primaryLight, fontSize: 13, fontWeight: FontWeight.bold)),
                     ),
                     const Text(" • ", style: TextStyle(color: AppTheme.textHint)),
                     TextButton(

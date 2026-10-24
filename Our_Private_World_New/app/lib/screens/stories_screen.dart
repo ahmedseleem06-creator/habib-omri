@@ -81,7 +81,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(color: AppTheme.primary.withOpacity(0.15), shape: BoxShape.circle),
-                  child: const Icon(Icons.text_fields_rounded, color: AppTheme.primaryLight),
+                  child: Icon(Icons.text_fields_rounded, color: AppTheme.primaryLight),
                 ),
                 title: const Text("حالة كلامية (اكتب كلام حلو)", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 subtitle: const Text("كلام رومانسي بخلفية ملونة", style: TextStyle(color: AppTheme.textMuted, fontSize: 12)),
@@ -310,7 +310,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      decoration: const BoxDecoration(color: AppTheme.primary, shape: BoxShape.circle),
+                      decoration: BoxDecoration(color: AppTheme.primary, shape: BoxShape.circle),
                       child: const Icon(Icons.add, size: 16, color: Colors.white),
                     ),
                   ),
@@ -323,7 +323,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
           ),
 
           const SizedBox(height: 20),
-          const Text("الحالات الأخيرة ❤️", style: TextStyle(fontWeight: FontWeight.bold, color: AppTheme.primaryLight, fontSize: 13)),
+          Text("الحالات الأخيرة ❤️", style: TextStyle(fontWeight: FontWeight.bold, color: AppTheme.primaryLight, fontSize: 13)),
           const SizedBox(height: 10),
 
           // Story items list
@@ -338,7 +338,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
               child: ListTile(
                 leading: Container(
                   padding: const EdgeInsets.all(2.5),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(colors: [AppTheme.primary, AppTheme.accentPink]),
                   ),
@@ -350,7 +350,7 @@ class _StoriesScreenState extends State<StoriesScreen> {
                 ),
                 title: Text(story.authorName, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                 subtitle: Text(story.content, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppTheme.textMuted, fontSize: 12)),
-                trailing: const Icon(Icons.play_circle_fill_rounded, color: AppTheme.primaryLight, size: 28),
+                trailing: Icon(Icons.play_circle_fill_rounded, color: AppTheme.primaryLight, size: 28),
                 onTap: () => _openStoryViewer(story),
               ),
             );

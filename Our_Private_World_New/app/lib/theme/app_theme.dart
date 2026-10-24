@@ -95,14 +95,14 @@ class AppTheme {
   static ThemePreset current = presets[0];
 
   // Colors shortcut
-  static Color get background => current.background;
-  static Color get surface => current.surface;
-  static Color get surfaceElevated => current.surfaceElevated;
-  static Color get primary => current.primary;
-  static Color get primaryLight => current.primaryLight;
-  static Color get myBubbleStart => current.bubbleStart;
-  static Color get myBubbleEnd => current.bubbleEnd;
-  static Color get partnerBubble => current.partnerBubble;
+  static const Color background = Color(0xFF0D0A14);
+  static const Color surface = Color(0xFF171224);
+  static const Color surfaceElevated = Color(0xFF221A33);
+  static const Color primary = Color(0xFF9333EA);
+  static const Color primaryLight = Color(0xFFC084FC);
+  static const Color myBubbleStart = Color(0xFF7E22CE);
+  static const Color myBubbleEnd = Color(0xFF9333EA);
+  static const Color partnerBubble = Color(0xFF211832);
   static const Color accentPink = Color(0xFFF43F5E);
 
   // Text Colors

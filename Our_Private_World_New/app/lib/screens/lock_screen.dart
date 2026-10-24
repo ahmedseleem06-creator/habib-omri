@@ -110,7 +110,7 @@ class _LockScreenState extends State<LockScreen> {
                   ),
                 ],
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.lock_rounded,
                 size: 42,
                 color: AppTheme.primaryLight,
@@ -126,7 +126,7 @@ class _LockScreenState extends State<LockScreen> {
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               "أهلاً بكم في عالم أحمد ومروة ❤️",
               style: TextStyle(
                 fontSize: 14,

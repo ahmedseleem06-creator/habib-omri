@@ -453,7 +453,7 @@ class _ChatScreenState extends State<ChatScreen> {
             const SizedBox(height: 8),
             Text(
               isSender ? "موبايلها بيهتز بنبضات قلبك في نفس اللحظة ✨" : "بحبك يا مروة وربنا يجعلك حلالي ونور حياتي 💍",
-              style: const TextStyle(color: AppTheme.primaryLight, fontSize: 12, decoration: TextDecoration.none),
+              style: TextStyle(color: AppTheme.primaryLight, fontSize: 12, decoration: TextDecoration.none),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
@@ -617,7 +617,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           // Memories Vault Button (ذكرياتنا والعداد)
           IconButton(
-            icon: const Icon(Icons.calendar_month_rounded, color: AppTheme.primaryLight),
+            icon: Icon(Icons.calendar_month_rounded, color: AppTheme.primaryLight),
             tooltip: "قسم ذكرياتنا والعداد",
             onPressed: () {
               Navigator.push(
@@ -628,7 +628,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           // Scheduled Messages Button (الرسائل المجدولة)
           IconButton(
-            icon: const Icon(Icons.alarm_rounded, color: AppTheme.primaryLight),
+            icon: Icon(Icons.alarm_rounded, color: AppTheme.primaryLight),
             tooltip: "الرسائل المجدولة التلقائية",
             onPressed: () {
               Navigator.push(
@@ -639,7 +639,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           // Settings Button (الثيمات والخلفية)
           IconButton(
-            icon: const Icon(Icons.settings_outlined, color: AppTheme.primaryLight),
+            icon: Icon(Icons.settings_outlined, color: AppTheme.primaryLight),
             tooltip: "الإعدادات والثيمات",
             onPressed: () async {
               await Navigator.push(
@@ -695,9 +695,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Text("حالتي: ", style: TextStyle(fontSize: 10, color: AppTheme.textMuted)),
-                            Text(_myMood, style: const TextStyle(fontSize: 10, color: AppTheme.primaryLight, fontWeight: FontWeight.bold)),
+                            Text(_myMood, style: TextStyle(fontSize: 10, color: AppTheme.primaryLight, fontWeight: FontWeight.bold)),
                             const SizedBox(width: 4),
-                            const Icon(Icons.edit, size: 10, color: AppTheme.primaryLight),
+                            Icon(Icons.edit, size: 10, color: AppTheme.primaryLight),
                           ],
                         ),
                       ),
@@ -779,7 +779,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
 
               if (_isUploading)
-                const LinearProgressIndicator(
+                LinearProgressIndicator(
                   color: AppTheme.accentPink,
                   backgroundColor: AppTheme.surface,
                 ),
@@ -842,7 +842,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: hasStory
-                      ? const LinearGradient(colors: [AppTheme.primary, AppTheme.accentPink])
+                      ? LinearGradient(colors: [AppTheme.primary, AppTheme.accentPink])
                       : null,
                   border: isAdd ? Border.all(color: Colors.white24, width: 1.5) : null,
                 ),
@@ -858,7 +858,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   right: 0,
                   child: Container(
                     padding: const EdgeInsets.all(2),
-                    decoration: const BoxDecoration(color: AppTheme.primary, shape: BoxShape.circle),
+                    decoration: BoxDecoration(color: AppTheme.primary, shape: BoxShape.circle),
                     child: const Icon(Icons.add, size: 12, color: Colors.white),
                   ),
                 ),
@@ -1099,7 +1099,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     // Multi-Image & Video Attachment Button
                     IconButton(
-                      icon: const Icon(Icons.attach_file_rounded, color: AppTheme.primaryLight, size: 22),
+                      icon: Icon(Icons.attach_file_rounded, color: AppTheme.primaryLight, size: 22),
                       onPressed: _showAttachmentSheet,
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
@@ -1122,7 +1122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         shape: BoxShape.circle,
                         color: AppTheme.surfaceElevated,
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Icon(Icons.mic_rounded, color: AppTheme.primaryLight, size: 22),
                       ),
                     ),
@@ -1290,7 +1290,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: AppTheme.primaryLight.withOpacity(0.2)),
                     ),
-                    child: const Icon(Icons.backspace_outlined, size: 18, color: AppTheme.primaryLight),
+                    child: Icon(Icons.backspace_outlined, size: 18, color: AppTheme.primaryLight),
                   ),
                 ),
               ],

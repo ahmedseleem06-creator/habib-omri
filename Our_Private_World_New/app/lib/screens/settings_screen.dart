@@ -193,7 +193,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: _pickAvatar,
                         child: Container(
                           padding: const EdgeInsets.all(4),
-                          decoration: const BoxDecoration(color: AppTheme.primary, shape: BoxShape.circle),
+                          decoration: BoxDecoration(color: AppTheme.primary, shape: BoxShape.circle),
                           child: const Icon(Icons.camera_alt, size: 14, color: Colors.white),
                         ),
                       ),
@@ -212,7 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       TextButton(
                         onPressed: _pickAvatar,
                         style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(50, 24)),
-                        child: const Text("اختيار صورة من المعرض 📷", style: TextStyle(fontSize: 12, color: AppTheme.primaryLight)),
+                        child: Text("اختيار صورة من المعرض 📷", style: TextStyle(fontSize: 12, color: AppTheme.primaryLight)),
                       ),
                     ],
                   ),
@@ -337,7 +337,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 12),
                   Text(
                     "شفافية وتعتيم الخلفية: ${(_opacity * 100).toInt()}%",
-                    style: const TextStyle(fontSize: 11, color: AppTheme.primaryLight),
+                    style: TextStyle(fontSize: 11, color: AppTheme.primaryLight),
                   ),
                   Slider(
                     value: _opacity,
@@ -427,7 +427,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.only(bottom: 8, right: 4),
       child: Text(
         title,
-        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppTheme.primaryLight),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppTheme.primaryLight),
       ),
     );
   }

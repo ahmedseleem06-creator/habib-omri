@@ -420,7 +420,7 @@ class _MemoriesScreenState extends State<MemoriesScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.timeline_rounded, color: AppTheme.primaryLight, size: 20),
               SizedBox(width: 8),
@@ -452,7 +452,7 @@ class _MemoriesScreenState extends State<MemoriesScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(date, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppTheme.primaryLight)),
+                Text(date, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppTheme.primaryLight)),
                 Text(desc, style: const TextStyle(fontSize: 12, color: AppTheme.textMuted)),
               ],
             ),

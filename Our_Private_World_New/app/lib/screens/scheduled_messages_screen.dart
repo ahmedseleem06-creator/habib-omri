@@ -159,9 +159,9 @@ class _ScheduledMessagesScreenState extends State<ScheduledMessagesScreen> {
                     children: [
                       Text(
                         "${selectedTime.format(context)} (يومياً)",
-                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppTheme.primaryLight),
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppTheme.primaryLight),
                       ),
-                      const Icon(Icons.access_time_rounded, color: AppTheme.primaryLight, size: 20),
+                      Icon(Icons.access_time_rounded, color: AppTheme.primaryLight, size: 20),
                     ],
                   ),
                 ),
@@ -272,11 +272,11 @@ class _ScheduledMessagesScreenState extends State<ScheduledMessagesScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.alarm_rounded, size: 14, color: AppTheme.primaryLight),
+                                    Icon(Icons.alarm_rounded, size: 14, color: AppTheme.primaryLight),
                                     const SizedBox(width: 4),
                                     Text(
                                       item.timeString,
-                                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primaryLight),
+                                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primaryLight),
                                     ),
                                   ],
                                 ),
@@ -306,8 +306,8 @@ class _ScheduledMessagesScreenState extends State<ScheduledMessagesScreen> {
                         children: [
                           TextButton.icon(
                             onPressed: () => _sendNow(item),
-                            icon: const Icon(Icons.send_rounded, size: 14, color: AppTheme.primaryLight),
-                            label: const Text("إرسال الآن", style: TextStyle(fontSize: 12, color: AppTheme.primaryLight)),
+                            icon: Icon(Icons.send_rounded, size: 14, color: AppTheme.primaryLight),
+                            label: Text("إرسال الآن", style: TextStyle(fontSize: 12, color: AppTheme.primaryLight)),
                           ),
                           IconButton(
                             icon: const Icon(Icons.delete_outline_rounded, size: 18, color: Colors.redAccent),

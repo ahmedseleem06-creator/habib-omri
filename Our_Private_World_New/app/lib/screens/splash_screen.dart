@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 110,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: const RadialGradient(
+                gradient: RadialGradient(
                   colors: [AppTheme.primary, Colors.transparent],
                   stops: [0.3, 1.0],
                 ),
@@ -92,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 8),
 
             // Welcome Message
-            const Text(
+            Text(
               "أهلاً بكم في عالم أحمد ومروة ❤️",
               style: TextStyle(
                 fontSize: 16,
