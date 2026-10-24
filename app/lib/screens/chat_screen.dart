@@ -400,10 +400,7 @@ class _ChatScreenState extends State<ChatScreen> {
     Future.delayed(const Duration(milliseconds: 160), () => HapticFeedback.heavyImpact());
     Future.delayed(const Duration(milliseconds: 320), () => HapticFeedback.heavyImpact());
 
-    ChatService().sendMessage(
-      content: "💓 نبضة حب: أنا بفكر فيكي دلوقتي ونبضات قلبي بتناديكي ❤️",
-      type: "heartbeat",
-    );
+    ChatService().sendMessage("💓 نبضة حب: أنا بفكر فيكي دلوقتي ونبضات قلبي بتناديكي ❤️", type: "heartbeat");
 
     _showHeartbeatOverlay(isSender: true, name: _partnerName);
   }
@@ -508,7 +505,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Navigator.pop(ctx);
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.setString("user_current_mood", m);
-                  ChatService().sendMessage(content: m, type: "mood_update");
+                  ChatService().sendMessage(m, type: "mood_update");
                 },
               )),
             ],

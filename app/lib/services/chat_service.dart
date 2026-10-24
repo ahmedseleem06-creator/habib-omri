@@ -65,10 +65,10 @@ class ChatService {
     });
   }
 
-  void sendMessage(String content, {String msgType = "text", String mediaUrl = ""}) {
+  void sendMessage(String content, {String msgType = "text", String mediaUrl = "", String type = "message"}) {
     if (_channel != null && isConnected) {
       _channel!.sink.add(jsonEncode({
-        "type": "message",
+        "type": type,
         "content": content,
         "msg_type": msgType,
         "media_url": mediaUrl,
