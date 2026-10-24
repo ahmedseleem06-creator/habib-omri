@@ -27,17 +27,31 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Normalize Project Directory Structure
+      - name: Extract Zip & Normalize Directory Structure
         run: |
-          # If files were uploaded inside a wrapper folder on GitHub
-          for folder in Our_Private_World_New habib_omri; do
+          # 1. فك ضغط أي ملف Zip مرفوع في المستودع تلقائياً
+          for zipfile in *.zip; do
+            if [ -f "$zipfile" ]; then
+              echo "Extracting archive: $zipfile..."
+              unzip -o "$zipfile"
+            fi
+          done
+
+          # 2. تسوية الفولدرات
+          for folder in Our_Private_World_New habib_omri app_source; do
             if [ -d "$folder" ]; then
               echo "Found wrapper folder: $folder. Flattening structure..."
               cp -r $folder/* . 2>/dev/null || true
               cp -r $folder/.* . 2>/dev/null || true
             fi
           done
+
           ls -la
+
+          if [ ! -d "./app" ]; then
+            echo "ERROR: Directory ./app not found!"
+            exit 1
+          fi
 
       - name: Generate Official Android Platform Files
         working-directory: ./app
