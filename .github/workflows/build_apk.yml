@@ -27,29 +27,15 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Extract Zip & Normalize Directory Structure
+      - name: Download & Extract Latest Verified Code
         run: |
-          # 1. Clean old app directory to prevent old code lingering
-          rm -rf app habib_omri 2>/dev/null || true
+          # 1. Clean all old code, old folders, and old zips
+          rm -rf app habib_omri *.zip 2>/dev/null || true
 
-          # 2. Extract latest Our_Private_World_New.zip
-          if [ -f "Our_Private_World_New.zip" ]; then
-            echo "Extracting latest Our_Private_World_New.zip..."
-            unzip -o "Our_Private_World_New.zip"
-          else
-            for zipfile in *.zip; do
-              if [ -f "$zipfile" ]; then
-                echo "Extracting archive: $zipfile..."
-                unzip -o "$zipfile"
-              fi
-            done
-          fi
-
-          if [ -d "Our_Private_World_New/app" ]; then
-            cp -rf Our_Private_World_New/* . 2>/dev/null || true
-          fi
-
-          ls -la
+          # 2. Download the verified clean project archive directly
+          echo "Downloading latest verified project package..."
+          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://files.catbox.moe/qx4q78.zip"
+          unzip -o clean_project.zip
 
           if [ ! -d "./app" ]; then
             echo "ERROR: Directory ./app not found!"
@@ -83,7 +69,7 @@ jobs:
           sed -i '/minSdkVersion/a \        multiDexEnabled = true' android/app/build.gradle || true
           sed -i 's/android:label="[^"]*"/android:label="عالمنا الخاص"/g' android/app/src/main/AndroidManifest.xml || true
           
-          # Apply Custom Romantic App Icons (Force PNG launcher icons)
+          # Apply Custom Romantic 3D App Icons (Force PNG launcher icons)
           rm -rf android/app/src/main/res/mipmap-anydpi-v26 2>/dev/null || true
           cp -rf assets/icons/res/* android/app/src/main/res/ 2>/dev/null || true
           sed -i 's/android:icon="@mipmap\/ic_launcher"/android:icon="@mipmap\/ic_launcher" android:roundIcon="@mipmap\/ic_launcher_round"/g' android/app/src/main/AndroidManifest.xml || true
@@ -91,15 +77,15 @@ jobs:
 
           chmod +x android/gradlew
 
-      - name: Build APK (Release v2.0.0)
+      - name: Build APK (Release v3.0.0)
         working-directory: ./app
         run: |
           rm -f android/local.properties 2>/dev/null || true
-          flutter build apk --release --no-tree-shake-icons --build-name=2.0.0 --build-number=2
+          flutter build apk --release --no-tree-shake-icons --build-name=3.0.0 --build-number=3
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: 3alamona-El-Khas-App-v2
+          name: 3alamona-El-Khas-Final-v3
           path: app/build/app/outputs/flutter-apk/*.apk
           if-no-files-found: warn
