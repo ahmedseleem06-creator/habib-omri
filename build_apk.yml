@@ -3,7 +3,7 @@ name: Build Habib Omri APK
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -27,9 +27,60 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Get Flutter Packages
+      - name: Extract Zip & Normalize Directory Structure
+        run: |
+          # 1. Extract any zip file uploaded to the repo
+          for zipfile in *.zip; do
+            if [ -f "$zipfile" ]; then
+              echo "Extracting archive: $zipfile..."
+              unzip -o "$zipfile"
+            fi
+          done
+
+          # 2. If files were extracted inside a wrapper folder, flatten them
+          for folder in Our_Private_World_New habib_omri app_source; do
+            if [ -d "$folder" ]; then
+              echo "Found wrapper folder: $folder. Flattening structure..."
+              cp -r $folder/* . 2>/dev/null || true
+              cp -r $folder/.* . 2>/dev/null || true
+            fi
+          done
+
+          ls -la
+
+          if [ ! -d "./app" ]; then
+            echo "ERROR: Directory ./app still not found!"
+            exit 1
+          fi
+
+      - name: Generate Official Android Platform Files
         working-directory: ./app
-        run: flutter pub get
+        run: |
+          flutter create --platforms=android --org com.example .
+          flutter pub get
+
+      - name: Fix Code & Configure Android
+        working-directory: ./app
+        run: |
+          # 1. Fix Dart syntax in chat_screen.dart
+          sed -i 's/BorderSide.none/InputBorder.none/g' lib/screens/chat_screen.dart || true
+
+          # 2. Use FlutterFragmentActivity for fingerprint authentication (local_auth)
+          sed -i 's/FlutterActivity/FlutterFragmentActivity/g' android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt || true
+
+          # 3. Configure Android SDK 35 & minSdk 21 (Old Android support)
+          sed -i 's/compileSdk = flutter.compileSdkVersion/compileSdk = 35/g' android/app/build.gradle || true
+          sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion 35/g' android/app/build.gradle || true
+          sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle || true
+          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle || true
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle || true
+          sed -i '/minSdkVersion/a \        multiDexEnabled = true' android/app/build.gradle || true
+
+          # 4. App Name and Permissions in AndroidManifest
+          sed -i 's/android:label="[^"]*"/android:label="عالمنا الخاص"/g' android/app/src/main/AndroidManifest.xml || true
+          grep -q 'android.permission.INTERNET' android/app/src/main/AndroidManifest.xml || sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.USE_BIOMETRIC" />\n    <uses-permission android:name="android.permission.USE_FINGERPRINT" />' android/app/src/main/AndroidManifest.xml || true
+
+          chmod +x android/gradlew
 
       - name: Build APK (Release)
         working-directory: ./app
@@ -38,5 +89,6 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Habib-Omri-App
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+          name: 3alamona-El-Khas-App
+          path: app/build/app/outputs/flutter-apk/*.apk
+          if-no-files-found: warn
