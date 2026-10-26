@@ -31,7 +31,7 @@ jobs:
         run: |
           rm -rf app habib_omri *.zip 2>/dev/null || true
           echo "Downloading latest verified project package..."
-          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://files.catbox.moe/s0b6g7.zip"
+          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://files.catbox.moe/n427dg.zip"
           unzip -o clean_project.zip
 
           if [ ! -d "./app" ]; then
@@ -58,15 +58,15 @@ jobs:
           cp -rf assets/icons/res/* android/app/src/main/res/ 2>/dev/null || true
           chmod +x android/gradlew
 
-      - name: Build APK (Release v3.4.0)
+      - name: Build APK (Release v4.0.0)
         working-directory: ./app
         run: |
           rm -f android/local.properties 2>/dev/null || true
-          flutter build apk --release --no-tree-shake-icons --build-name=3.4.0 --build-number=10
+          flutter build apk --release --no-tree-shake-icons --build-name=4.0.0 --build-number=11
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: 3alamona-El-Khas-Final-v3.4.0
+          name: 3alamona-El-Khas-Final-v4.0.0
           path: app/build/app/outputs/flutter-apk/*.apk
           if-no-files-found: warn
