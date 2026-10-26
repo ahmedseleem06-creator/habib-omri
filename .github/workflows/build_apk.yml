@@ -31,7 +31,7 @@ jobs:
         run: |
           rm -rf app habib_omri *.zip 2>/dev/null || true
           echo "Downloading latest verified project package..."
-          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://organisations-colleges-patrick-sleep.trycloudflare.com/uploads/clean_project.zip"
+          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://files.catbox.moe/q2ib9x.zip"
           unzip -o clean_project.zip
 
           if [ ! -d "./app" ]; then
