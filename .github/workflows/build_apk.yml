@@ -41,7 +41,7 @@ jobs:
           npx cap init "X Deal Marketing" "com.xdeal.marketing" --web-dir www
           npx cap add android
 
-          # حل تعارض مكتبات Kotlin
+          # حل تعارض مكتبات Kotlin وتخطي الفحص الزائد
           cat << 'EOF' >> android/app/build.gradle
 
           configurations.all {
