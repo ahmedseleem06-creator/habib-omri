@@ -1,6 +1,7 @@
 {
   "name": "X Deal Marketing",
   "short_name": "X Deal",
+  "id": "xdeal",
   "description": "تطبيق وكالة X Deal Marketing لإدارة الأرباح، باقات دعاية المحلات، صيانة وسمسرة الأجهزة، واشتراكات AI",
   "start_url": "./index.html",
   "display": "standalone",
@@ -14,7 +15,13 @@
       "src": "./logo.jpg",
       "sizes": "192x192 512x512",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./logo.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
     }
   ]
 }
