@@ -40,9 +40,22 @@ jobs:
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "X Deal Marketing" "com.xdeal.marketing" --web-dir www
           npx cap add android
+
+          # حل تعارض مكتبات Kotlin
+          cat << 'EOF' >> android/app/build.gradle
+
+          configurations.all {
+              resolutionStrategy {
+                  force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+              }
+          }
+          EOF
+
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug -x checkDebugDuplicateClasses --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
