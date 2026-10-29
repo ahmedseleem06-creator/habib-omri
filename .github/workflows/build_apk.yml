@@ -1,72 +1,51 @@
-name: Build Habib Omri APK
+name: Build X Deal Android APK
 
 on:
-  push:
-    branches: [ main, master ]
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
-    name: Build Android APK
+  build-apk:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Java JDK
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          flutter-version: '3.24.x'
-          channel: 'stable'
-          cache: true
+          node-version: 20
 
-      - name: Download & Extract Latest Verified Code
+      - name: Prepare Web Assets
         run: |
-          rm -rf app habib_omri *.zip 2>/dev/null || true
-          echo "Downloading latest verified project package..."
-          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://files.catbox.moe/wtckpo.zip"
-          unzip -o clean_project.zip
-
-          if [ ! -d "./app" ]; then
-            echo "ERROR: Directory ./app not found!"
-            exit 1
+          mkdir -p www
+          if [ -d "x_deal_marketing" ]; then
+            cp -r x_deal_marketing/* www/
+          else
+            cp index.html logo.jpg manifest.json www/ 2>/dev/null || true
           fi
 
-      - name: Generate Official Android Platform Files
-        working-directory: ./app
+      - name: Build Android APK
         run: |
-          mkdir -p /tmp/custom_android
-          cp android/app/src/main/AndroidManifest.xml /tmp/custom_android/
-          cp android/app/build.gradle /tmp/custom_android/
-          cp android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt /tmp/custom_android/
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init "X Deal Marketing" "com.xdeal.marketing" --web-dir www
+          npx cap add android
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
 
-          flutter create --platforms=android --org com.example .
-          flutter pub get
-
-          cp /tmp/custom_android/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
-          cp /tmp/custom_android/build.gradle android/app/build.gradle
-          cp /tmp/custom_android/MainActivity.kt android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt
-
-          rm -rf android/app/src/main/res/mipmap-anydpi-v26 2>/dev/null || true
-          cp -rf assets/icons/res/* android/app/src/main/res/ 2>/dev/null || true
-          chmod +x android/gradlew
-
-      - name: Build APK (Release v4.2.4)
-        working-directory: ./app
-        run: |
-          rm -f android/local.properties 2>/dev/null || true
-          flutter build apk --release --no-tree-shake-icons --build-name=4.2.4 --build-number=17
-
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: 3alamona-El-Khas-Final-v4.2.4
-          path: app/build/app/outputs/flutter-apk/*.apk
-          if-no-files-found: warn
+          name: X-Deal-Marketing-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
