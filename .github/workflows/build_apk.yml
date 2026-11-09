@@ -1,64 +1,72 @@
-name: Build X Deal Android APK
+name: Build Habib Omri APK
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
-  build-apk:
+  build:
+    name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Java 21
+      - name: Set up Java JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: 'zulu'
+          java-version: '17'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          node-version: 20
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
 
-      - name: Prepare Web Assets
+      - name: Download & Extract Latest Verified Code
         run: |
-          mkdir -p www
-          if [ -d "x_deal_marketing" ]; then
-            cp -r x_deal_marketing/* www/
-          else
-            cp index.html logo.jpg manifest.json www/ 2>/dev/null || true
+          rm -rf app habib_omri *.zip 2>/dev/null || true
+          echo "Downloading latest verified project package..."
+          curl -sSL -H "User-Agent: Mozilla/5.0" -o clean_project.zip "https://litter.catbox.moe/s5xwni.zip"
+          unzip -o clean_project.zip
+
+          if [ ! -d "./app" ]; then
+            echo "ERROR: Directory ./app not found!"
+            exit 1
           fi
 
-      - name: Build Android APK
+      - name: Generate Official Android Platform Files
+        working-directory: ./app
         run: |
-          npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "X Deal Marketing" "com.xdeal.marketing" --web-dir www
-          npx cap add android
+          mkdir -p /tmp/custom_android
+          cp android/app/src/main/AndroidManifest.xml /tmp/custom_android/
+          cp android/app/build.gradle /tmp/custom_android/
+          cp android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt /tmp/custom_android/
 
-          # حل تعارض مكتبات Kotlin وتخطي الفحص الزائد
-          cat << 'EOF' >> android/app/build.gradle
+          flutter create --platforms=android --org com.example .
+          flutter pub get
 
-          configurations.all {
-              resolutionStrategy {
-                  force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
-                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
-                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
-              }
-          }
-          EOF
+          cp /tmp/custom_android/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+          cp /tmp/custom_android/build.gradle android/app/build.gradle
+          cp /tmp/custom_android/MainActivity.kt android/app/src/main/kotlin/com/example/habib_omri/MainActivity.kt
 
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug -x checkDebugDuplicateClasses --no-daemon
+          rm -rf android/app/src/main/res/mipmap-anydpi-v26 2>/dev/null || true
+          cp -rf assets/icons/res/* android/app/src/main/res/ 2>/dev/null || true
+          chmod +x android/gradlew
 
-      - name: Upload APK
+      - name: Build APK (Release v4.2.7)
+        working-directory: ./app
+        run: |
+          rm -f android/local.properties 2>/dev/null || true
+          flutter build apk --release --no-tree-shake-icons --build-name=4.2.7 --build-number=20
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: X-Deal-Marketing-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: 3alamona-El-Khas-Final-v4.2.7-b20
+          path: app/build/app/outputs/flutter-apk/*.apk
+          if-no-files-found: warn
